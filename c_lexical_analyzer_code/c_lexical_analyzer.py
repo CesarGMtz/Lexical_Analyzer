@@ -12,13 +12,18 @@ keywords = [
 
 tokens = [
   'KEYWORD',
-  'ID'
+  'ID',
+  'INT'
 ]
 
 def t_ID(t): # Y KEYWORD
   r'[_a-zA-Z][_a-zA-Z0-9]*'
   if t.value in keywords:
     t.type = 'KEYWORD' # EL TOKEN DEBE SER "KEYWORD" O LA KEYWORD EN ESPECÍFICO, EX: "AUTO", "_BOOL", ETC.
+  return t
+
+def t_INT(t):
+  r'(0x|0X)[a-fA-F0-9]*|[1-9][0-9]*|0[0-7]*'
   return t
 
 t_ignore = ' \t'
