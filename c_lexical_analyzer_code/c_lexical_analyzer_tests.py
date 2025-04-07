@@ -69,6 +69,65 @@ class TestInts(unittest.TestCase):
         token = self.lexer.token()
         self.assertEqual(token.type, 'INT')
         self.assertEqual(token.value, '0x1')
+        
+# Falta floating-suffix
+class TestFloats(unittest.TestCase):
+    def setUp(self):
+        self.lexer = c_lexical_analyzer.getLexer()
+        
+    def test_basic_decimal_float_fraction1(self):
+        self.lexer.input('10.20')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '10.20')
+    
+    def test_basic_decimal_float_fraction2(self):
+        self.lexer.input('.20')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '.20')
+        
+    def test_basic_decimal_float_fraction3(self):
+        self.lexer.input('1.')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '1.')
+        
+    def test_basic_decimal_float_fraction4(self):
+        self.lexer.input('1.e11')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '1.e11')
+    
+    def test_basic_decimal_float_digit1(self):
+        self.lexer.input('1e10')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '1e10')
+        
+    def test_basic_decimal_float_digit2(self):
+        self.lexer.input('1e+10')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '1e+10')
+    
+    def test_basic_hexadecimal_float_digit1(self):
+        self.lexer.input('0X.23p32')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '0X.23p32')
+    
+    def test_basic_hexadecimal_float_digit2(self):
+        self.lexer.input('0xAf.P32')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '0xAf.P32')
+        
+    def test_basic_hexadecimal_float_digit3(self):
+        self.lexer.input('0xFFP32')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'FLOAT')
+        self.assertEqual(token.value, '0xFFP32')
 
 if __name__ == '__main__':
     unittest.main()
