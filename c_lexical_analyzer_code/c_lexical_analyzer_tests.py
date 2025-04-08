@@ -139,6 +139,16 @@ class TestChars(unittest.TestCase):
         self.assertEqual(token.type, 'CHAR')
         self.assertEqual(token.value, "'ab'")
 
+class TestStrs(unittest.TestCase):
+    def setUp(self):
+        self.lexer = c_lexical_analyzer.getLexer()
+        
+    def test_basic_char(self):
+        self.lexer.input('"ab"')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'STR')
+        self.assertEqual(token.value, '"ab"')
+
 if __name__ == '__main__':
     unittest.main()
     

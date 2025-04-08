@@ -16,12 +16,16 @@ tokens = [
   'ID',
   'INT',
   'FLOAT',
-  'CHAR'
+  'CHAR',
+  'STR'
 ]
 
 def t_CHAR(t):
   r'L?\'[^\'\n]+\''
-  print("T", t)
+  return t
+
+def t_STR(t):
+  r'L?\"[^\'\n]+\"'
   return t
 
 def t_ID(t): # Y KEYWORD
