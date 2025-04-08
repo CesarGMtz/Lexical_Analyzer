@@ -10,6 +10,15 @@ keywords = [
   '_Bool', '_Complex', '_Imaginary'
 ]
 
+# Para PUNCTUATOR
+punctuators = [
+  '[', ']', '(', ')', '{', '}', '.', '->', '++', '--', '&', '*', '+', '-',
+  '~', '!', '/', '%', '<<', '>>', '<', '>', '<=', '>=', '==', '!=', '^',
+  '|', '&&', '||', '?', ':', ';', '...', '=', '*=', '/=', '%=', '+=',
+  '-=', '<<=', '>>=', '&=', '^=', '|=', ',', '#', '##', '<:', ':>', '<%',
+  '%>', '%:', '%:%:'
+]
+
 # Falta Universl character names
 tokens = [
   'KEYWORD',
@@ -17,7 +26,8 @@ tokens = [
   'INT',
   'FLOAT',
   'CHAR',
-  'STR'
+  'STR',
+  'PUNCTUATOR'
 ]
 
 def t_CHAR(t):
@@ -40,6 +50,12 @@ def t_FLOAT(t):
 
 def t_INT(t):
   r'0[xX][a-fA-F\d]+|[1-9]\d*|0[0-7]*'
+  return t
+
+def t_PUNCTUATOR(t):
+  r'\W+'
+  print("T", t)
+  
   return t
 
 t_ignore = ' \t'

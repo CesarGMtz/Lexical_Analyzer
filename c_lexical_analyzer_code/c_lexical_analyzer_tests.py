@@ -149,6 +149,16 @@ class TestStrs(unittest.TestCase):
         self.assertEqual(token.type, 'STR')
         self.assertEqual(token.value, '"ab"')
 
+class TestPunctuators(unittest.TestCase):
+    def setUp(self):
+        self.lexer = c_lexical_analyzer.getLexer()
+        
+    def test_basic_punctuator(self):
+        self.lexer.input('##')
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'PUNCTUATOR')
+        self.assertEqual(token.value, '##')
+
 if __name__ == '__main__':
     unittest.main()
     
