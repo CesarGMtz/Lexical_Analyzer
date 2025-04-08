@@ -10,12 +10,19 @@ keywords = [
   '_Bool', '_Complex', '_Imaginary'
 ]
 
+# Falta Universl character names
 tokens = [
   'KEYWORD',
   'ID',
   'INT',
-  'FLOAT'
+  'FLOAT',
+  'CHAR'
 ]
+
+def t_CHAR(t):
+  r'L?\'[^\'\n]+\''
+  print("T", t)
+  return t
 
 def t_ID(t): # Y KEYWORD
   r'[_a-zA-Z][\w]*'

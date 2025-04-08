@@ -18,7 +18,7 @@ class TestKeywords(unittest.TestCase):
         self.assertEqual(token.type, 'KEYWORD')
         self.assertEqual(token.value, '_Bool')
 
-# Falta Predefined identifiers, y Universal character names
+# Falta Predefined identifiers
 class TestIDs(unittest.TestCase):
     def setUp(self):
         self.lexer = c_lexical_analyzer.getLexer()
@@ -128,6 +128,20 @@ class TestFloats(unittest.TestCase):
         token = self.lexer.token()
         self.assertEqual(token.type, 'FLOAT')
         self.assertEqual(token.value, '0xFFP32')
+        
+class TestChars(unittest.TestCase):
+    def setUp(self):
+        self.lexer = c_lexical_analyzer.getLexer()
+        
+    def test_basic_char(self):
+        self.lexer.input("'ab'")
+        token = self.lexer.token()
+        self.assertEqual(token.type, 'CHAR')
+        self.assertEqual(token.value, "'ab'")
 
 if __name__ == '__main__':
     unittest.main()
+    
+# No voy a hacer Ennumeration constants por la combinación de palabra reservada con identifier "int Value"
+# No considero los "\" en CHAR porque intervienen en el regex
+# No considero los scap0e secuence, octal y hexadecimal chars por l,a dificultad en probralos
