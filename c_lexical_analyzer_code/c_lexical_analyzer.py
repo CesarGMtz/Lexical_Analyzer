@@ -27,7 +27,8 @@ tokens = [
   'FLOAT',
   'CHAR',
   'STR',
-  'PUNCTUATOR'
+  'PUNCTUATOR',
+  'HEADER'
 ]
 
 def t_CHAR(t):
@@ -52,10 +53,12 @@ def t_INT(t):
   r'0[xX][a-fA-F\d]+|[1-9]\d*|0[0-7]*'
   return t
 
+def t_HEADER(t):
+  r'\<[^\n\>]+\>'
+  return t
+
 def t_PUNCTUATOR(t):
-  r'\W+'
-  print("T", t)
-  
+  r'\W+' # PASAR PUNSTUATOR A REGEX ACÁ PARA QUE NO ACEPTE "<<<<"
   return t
 
 t_ignore = ' \t'
