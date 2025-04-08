@@ -154,25 +154,18 @@ class TestPunctuators(unittest.TestCase):
         self.lexer = c_lexical_analyzer.getLexer()
         
     def test_basic_punctuator(self):
-        self.lexer.input('##')
+        self.lexer.input('<<=')
         token = self.lexer.token()
         self.assertEqual(token.type, 'PUNCTUATOR')
-        self.assertEqual(token.value, '##')
-        
-class TestHeaders(unittest.TestCase):
-    def setUp(self):
-        self.lexer = c_lexical_analyzer.getLexer()
-        
-    def test_h_header(self):
-        self.lexer.input('<Library>')
-        token = self.lexer.token()
-        self.assertEqual(token.type, 'HEADER')
-        self.assertEqual(token.value, '')
+        self.assertEqual(token.value, '<<=')
 
 if __name__ == '__main__':
     unittest.main()
     
+# No UNIVERSAL CHARACTER NAMES
 # No voy a hacer Ennumeration constants por la combinación de palabra reservada con identifier "int Value"
 # No considero los "\" en CHAR porque intervienen en el regex
-# No considero los scap0e secuence, octal y hexadecimal chars por l,a dificultad en probralos
-# No considero q-header porque headers "Library" se confunden con STR "Library" 
+# No considero los scape secuence, octal y hexadecimal chars por l,a dificultad en probralos
+# No considero HEADER por la conbinación de la directiva "#include" con el regex de un header
+# No PREPROCESSING NUMBERS
+# No COMMENTS
