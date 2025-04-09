@@ -39,17 +39,17 @@ def t_STR(t):
   return t
 
 def t_ID(t): # Y KEYWORD
-  r'[_a-zA-Z][\w]*' # FALTA UNIVERSAL-CHARACTER-NAME
+  r'[_a-zA-Z](\w)*'
   if t.value in keywords:
     t.type = 'KEYWORD'
   return t
 
 def t_FLOAT(t):
-  r'(\d+\.\d*|\.\d+)([e|E][+-]?\d+)?|(\d*[e|E][+-]?\d+)|0[xX]([a-fA-F\d]+\.[a-fA-F\d]*|\.[a-fA-F\d]+)[pP][+-]?\d+|0[xX][a-fA-F\d]+[pP][+-]?\d+'
+  r'((\d+\.\d*|\.\d+)([e|E][+-]?\d+)?|(\d*[e|E][+-]?\d+)|0[xX]([a-fA-F\d]+\.[a-fA-F\d]*|\.[a-fA-F\d]+)[pP][+-]?\d+|0[xX][a-fA-F\d]+[pP][+-]?\d+)[flFL]?'
   return t
 
 def t_INT(t):
-  r'0[xX][a-fA-F\d]+|[1-9]\d*|0[0-7]*'
+  r'(0[xX][a-fA-F\d]+|[1-9]\d*|0[0-7]*)(?:[uU](ll|LL|[lL])?|(?:ll|LL|[lL])[uU]?)?'
   return t
 
 def t_PUNCTUATOR(t):

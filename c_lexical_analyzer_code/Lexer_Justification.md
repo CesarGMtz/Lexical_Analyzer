@@ -11,14 +11,18 @@
     NO CONSIDERO "OTHER IMPLEMENTATION-DEFINED CHARACTERS
     NO CONSIDERO UNIVERSAL-CHARACTER-NAME
 ### Predefined Identifiers
+    NO LO CONSIDERO
 
 ## Universal Character Names
+    TODO
 
 ## Constants
 ### Integer Constants
+    TODO
 ### Floating Constants
+    TODO
 ### Enumeration Constants
-    NO CONSIDERO
+    NO LO CONSIDERO
 ### Character Constants
     TODO
 

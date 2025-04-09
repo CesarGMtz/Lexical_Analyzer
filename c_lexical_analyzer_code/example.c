@@ -9,8 +9,6 @@ int L;
 int myVar1;
 int Another_Var123;
 int _9startsWithUnderscoreAndDigit;
-int α;        // Unicode name (e.g. \u03B1)     *****ID \u03B1*****
-int 😀;        // Unicode emoji (e.g. \U0001F600)       *****ID \U0001F600*****
 int café;     // Accented character (e.g. \u00E9)
 int __doubleUnderscore;
 
@@ -37,16 +35,16 @@ int hex3 = 0xabcdef;        // hex with lowercase letters
 int hex4 = 0x123456789;     // hex with digits
 
 // Integer constants with suffixes
-int u1 = 100U;              // unsigned     *****INT U*****
-int u2 = 200u;              // unsigned (lowercase)     *****INT u*****
-long l1 = 300L;             // long     *****INT L*****
-long l2 = 400l;             // long (lowercase)     *****INT l*****
-long long ll1 = 500LL;      // long long        *****INT LL*****
-long long ll2 = 600ll;      // long long (lowercase)        *****INT ll*****
-unsigned long ul1 = 700UL;  // unsigned + long      *****INT UL*****
-unsigned long ul2 = 800lu;  // long + unsigned (mixed case)     *****INT ul*****
-unsigned long long ull1 = 900LLU; // unsigned + long long       *****INT LLU*****
-unsigned long long ull2 = 1000ull; // unsigned + long long (lowercase)      *****INT ull*****
+int u1 = 100U;              // unsigned
+int u2 = 200u;              // unsigned (lowercase)
+long l1 = 300L;             // long
+long l2 = 400l;             // long (lowercase)
+long long ll1 = 500LL;      // long long
+long long ll2 = 600ll;      // long long (lowercase)
+unsigned long ul1 = 700UL;  // unsigned + long
+unsigned long ul2 = 800lu;  // long + unsigned (mixed case)
+unsigned long long ull1 = 900LLU; // unsigned + long long
+unsigned long long ull2 = 1000ull; // unsigned + long long (lowercase)
 
 // === FLOATING CONSTANTS ===
 // Decimal floating constants (fractional-constant)
@@ -56,20 +54,20 @@ float f3 = 1.23;               // digit-sequence . digit-sequence
 float f4 = 1.23e10;            // exponent part: e + digits
 float f5 = 1.23E-10;           // exponent part: E - digits
 float f6 = 123e+2;             // digit-sequence exponent-part
-float f7 = 3.14f;              // with suffix f     *****FLOAT f*****
-float f8 = 2.71F;              // with suffix F     *****FLOAT F*****
-double f9 = 6.022e23l;         // with suffix L     *****FLOAT l*****
-double f10 = 6.022e23L;         // with suffix L     *****FLOAT L*****
+float f7 = 3.14f;              // with suffix f
+float f8 = 2.71F;              // with suffix F
+double f9 = 6.022e23l;         // with suffix L
+double f10 = 6.022e23L;         // with suffix L
 
 // Hexadecimal floating constants (C99 feature)
 double hf1 = 0x1.1p1;          // hexadecimal-fractional-constant with binary exponent
 double hf2 = 0X.8p+2;          // fractional: .digit, binary exponent
 double hf3 = 0x10.0P-1;        // hex digit . digit + binary exponent
 double hf4 = 0xABC.DEFp0;      // hex-fractional with binary exponent
-float hf5 = 0x1.0p2f;          // with suffix f     *****FLOAT f*****
-float hf6 = 0x1.0p2F;          // with suffix F     *****FLOAT F*****
-double hf7 = 0x1.0p2l;         // with suffix L     *****FLOAT L*****
-double hf8 = 0x1.0p2L;         // with suffix L     *****FLOAT l*****
+float hf5 = 0x1.0p2f;          // with suffix f
+float hf6 = 0x1.0p2F;          // with suffix F
+double hf7 = 0x1.0p2l;         // with suffix L
+double hf8 = 0x1.0p2L;         // with suffix L
 
 // === CHARACTER CONSTANTS ===
 // Single characters
