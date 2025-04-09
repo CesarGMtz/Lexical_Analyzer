@@ -20,6 +20,7 @@ tokens = [
   'CHAR',
   'STR',
   'PUNCTUATOR',
+  'HEADER'
 ]
 
 def t_COMMENT(t):
@@ -38,6 +39,10 @@ def t_STR(t):
   r'L?"(\\([abfnrtv\\\'\"?]|x[\dA-Fa-f]+|[0-7]{1,3}|u[\dA-Fa-f]{4}|U[\dA-Fa-f]{8})|[^\\\"\n])*"'
   return t
 
+def t_HEADER(t):
+  r'<[^\\n>]+>'
+  return t
+
 def t_ID(t): # Y KEYWORD
   r'[_a-zA-Z](\w)*'
   if t.value in keywords:
@@ -49,7 +54,7 @@ def t_FLOAT(t):
   return t
 
 def t_INT(t):
-  r'(0[xX][a-fA-F\d]+|[1-9]\d*|0[0-7]*)(?:[uU](ll|LL|[lL])?|(?:ll|LL|[lL])[uU]?)?'
+  r'(0[xX][a-fA-F\d]+|[1-9]\d*|0[0-7]*)([uU](ll|LL|[lL])?|(ll|LL|[lL])[uU]?)?'
   return t
 
 def t_PUNCTUATOR(t):

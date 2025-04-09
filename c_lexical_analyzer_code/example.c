@@ -1,6 +1,5 @@
 // test_identifiers.c (GENERADO CON CHATGPT)
 #include <wchar.h>
-#include <uchar.h>
 
 // === IDENTIFIERS ===
 int _underscore;

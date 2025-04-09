@@ -33,6 +33,7 @@
     TODO
 
 ## Header Names
+    NO CONSIDERO HEADERS DE ""
 
 ## Preprocessing Numbers
 
