@@ -14,6 +14,7 @@ keywords = [
 tokens = [
   'KEYWORD',
   'ID',
+  'UCN', #Universal-Character-Names
   'INT',
   'FLOAT',
   'CHAR',
@@ -21,18 +22,26 @@ tokens = [
   'PUNCTUATOR',
 ]
 
+def t_COMMENT(t):
+  r'(//.*)|(/\*(.|\n)*?\*/)'
+  pass
+
+def t_UCN(t):
+  r'\\(u[\dA-Fa-f]{4}|U[\dA-Fa-f]{8})'
+  return t
+
 def t_CHAR(t):
-  r'L?\'[^\'\n]+\''
+  r"L?'(\\([abfnrtv\\'\"?]|x[\dA-Fa-f]+|[0-7]{1,3}|u[\dA-Fa-f]{4}|U[\dA-Fa-f]{8})|[^\\'\n])*'"
   return t
 
 def t_STR(t):
-  r'L?\"[^\'\n]+\"'
+  r'L?"(\\([abfnrtv\\\'\"?]|x[\dA-Fa-f]+|[0-7]{1,3}|u[\dA-Fa-f]{4}|U[\dA-Fa-f]{8})|[^\\\"\n])*"'
   return t
 
 def t_ID(t): # Y KEYWORD
-  r'[_a-zA-Z][\w]*'
+  r'[_a-zA-Z][\w]*' # FALTA UNIVERSAL-CHARACTER-NAME
   if t.value in keywords:
-    t.type = 'KEYWORD' # EL TOKEN DEBE SER "KEYWORD" O LA KEYWORD EN ESPECÍFICO, EX: "AUTO", "_BOOL", ETC.
+    t.type = 'KEYWORD'
   return t
 
 def t_FLOAT(t):
@@ -49,6 +58,27 @@ def t_PUNCTUATOR(t):
 
 t_ignore = ' \t'
 
-def getLexer():
-  return lex.lex()
-        
+def t_newline(t):
+  r'\n+'
+  t.lexer.lineno += len(t.value)
+
+def t_error(t):
+  print(f"Caractér ilegal '{t.value[0]}' en linea {t.lineno}")
+  t.lexer.skip(1)
+  
+if __name__ == '__main__':
+  f = open("example.c", 'r')
+  data = f.read()
+
+  lexer = lex.lex()
+  lexer.input(data)
+
+  tokens_list = []
+  while True:
+    tok = lexer.token()
+    if not tok:
+      break
+    tokens_list.append((tok.type, tok.value, tok.lineno, tok.lexpos))
+  
+  for token in tokens_list:
+      print(token)
