@@ -81,7 +81,7 @@ tokenConv = {
     'KEYWORD': 'A',
     'ID': 'B',
     'UCN': 'C',
-    'INT': 'D',
+    'NUMBER': 'D',
     'FLOAT': 'E',
     'CHAR': 'F',
     'STR': 'G',
@@ -98,15 +98,36 @@ def suffix_array(text):
 s1 = suffix_array(charL1)
 s2 = suffix_array(charL2)
 
-def comparador(s1, s2):
-    iguales = 0
-    minL = min(len(s1), len(s2))
+# def comparador(s1, s2):
+#     iguales = 0
+#     minL = min(len(s1), len(s2))
     
-    for i in range(minL):
-        if s1[i] == s2[i]:
-            iguales += 1
+#     for i in range(minL):
+#         if s1[i] == s2[i]:
+#             iguales += 1
     
-    porIg = (iguales / minL) * 100
-    return porIg
+#     porIg = (iguales / minL) * 100
+#     return porIg
 
-print(f"Similitud: {comparador(s1, s2):.2f}%")
+def lcp(str1, str2):
+    res = []
+    for a, b in zip(str1, str2):
+        if a == b:
+            res.append(a)
+        else:
+            break
+    return res
+
+def lcp_all(sa1, sa2, original1, original2):
+    lcp_max = []
+    for i in sa1:
+        for j in sa2:
+            common = lcp(original1[i:], original2[j:])
+            if len(common) > len(lcp_max):
+                lcp_max = common
+    print(f"La similitud es de: {(2 * len(lcp_max)) / (len(tokens1) + len(tokens2)) * 100:.2f}%")
+    return lcp_max
+    
+#print(f"Similitud: {comparador(s1, s2):.2f}%")
+print(lcp_all(s1,s2,charL1,charL2))
+
