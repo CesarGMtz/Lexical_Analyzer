@@ -53,7 +53,7 @@ def t_FLOAT(t):
   return t
 
 def t_INT(t):
-  r'(0[xX][a-fA-F\d]+|[1-9]\d*|0[0-7]*)([uU](ll|LL|[lL])?|(ll|LL|[lL])[uU]?)?'
+  r'(0[xX][a-fA-F\d]+|[1-9]\d*|0[0-7]*)(u|U|l|L|ul|UL|lu|LU|ll|LL|ull|ULL|llu|LLU)?'
   return t
 
 def t_PUNCTUATOR(t):
