@@ -95,39 +95,47 @@ charL2 = [tokenConv.get(token_type, 'Nain') for token_type in tokens2]
 def suffix_array(text):
     return sorted(range(len(text)), key=lambda i: text[i:])
 
-s1 = suffix_array(charL1)
-s2 = suffix_array(charL2)
+def build_rank(suffix_array, n):
 
-# def comparador(s1, s2):
-#     iguales = 0
-#     minL = min(len(s1), len(s2))
-    
-#     for i in range(minL):
-#         if s1[i] == s2[i]:
-#             iguales += 1
-    
-#     porIg = (iguales / minL) * 100
-#     return porIg
+    rank = [0] * n
+    for i, suffix in enumerate(suffix_array):
+        rank[suffix] = i
+    return rank
 
-def lcp(str1, str2):
-    res = []
-    for a, b in zip(str1, str2):
-        if a == b:
-            res.append(a)
-        else:
-            break
-    return res
+def lcp_array(text, suffix_array, rank):
+
+    n = len(text)
+    lcp = [0] * (n - 1)
+    h = 0
+    for i in range(n):
+        if rank[i] > 0:
+            j = suffix_array[rank[i] - 1]  
+            while i + h < n and j + h < n and text[i + h] == text[j + h]:
+                h += 1
+            lcp[rank[i] - 1] = h
+            if h > 0:
+                h -= 1
+    return lcp
 
 def lcp_all(sa1, sa2, original1, original2):
-    lcp_max = []
-    for i in sa1:
-        for j in sa2:
-            common = lcp(original1[i:], original2[j:])
-            if len(common) > len(lcp_max):
-                lcp_max = common
-    print(f"La similitud es de: {(2 * len(lcp_max)) / (len(tokens1) + len(tokens2)) * 100:.2f}%")
-    return lcp_max
-    
-#print(f"Similitud: {comparador(s1, s2):.2f}%")
-print(lcp_all(s1,s2,charL1,charL2))
 
+    n1, n2 = len(original1), len(original2)
+    sa1 = suffix_array(original1)
+    sa2 = suffix_array(original2)
+    
+    rank1 = build_rank(sa1, n1)
+    rank2 = build_rank(sa2, n2)
+    
+    lcp1 = lcp_array(original1, sa1, rank1)
+    lcp2 = lcp_array(original2, sa2, rank2)
+    
+    max_lcp = 0
+    for i in range(len(lcp1)):
+        for j in range(len(lcp2)):
+            common = min(lcp1[i], lcp2[j])  
+            max_lcp = max(max_lcp, common)
+    
+    similitud = (2 * max_lcp) / (len(original1) + len(original2)) * 100
+    print(f"La similitud es de: {similitud:.2f}%")
+    return max_lcp
+    
