@@ -10,11 +10,10 @@ keywords = [
   '_Bool', '_Complex', '_Imaginary'
 ]
 
-# Falta Universl character names
 tokens = [
   'KEYWORD',
   'ID',
-  'UCN', #Universal-Character-Names
+  'UCN', # Universal-Character-Names
   'INT',
   'FLOAT',
   'CHAR',
