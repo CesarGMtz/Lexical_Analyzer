@@ -1,6 +1,10 @@
 // test_identifiers.c (GENERADO CON CHATGPT)
 #include <wchar.h>
 
+/*
+Comentario multilinéa
+*/
+
 // === IDENTIFIERS ===
 int _underscore;
 int a;
