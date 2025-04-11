@@ -1,5 +1,8 @@
 import difflib
 
+from tokens import tokens, keywords, t_COMMENT, t_error, t_FLOAT, t_HEADER, t_ID, t_ignore, t_NEWLINE, t_NUMBER, t_PUNCTUATOR, t_STRING
+
+
 def leer_archivo(path):
     with open(path, 'r', encoding='utf-8') as f:
         return f.readlines()
