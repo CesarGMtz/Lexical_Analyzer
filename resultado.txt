@@ -1,0 +1,21 @@
+=== Comparación sin preprocesar (texto llano) ===
+Porcentaje de similitud: 16.81%
+
+Fragmentos similares:
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  if _name_ == "_main_":
+
+
+=== Comparación con preprocesamiento ===
+Porcentaje de similitud: 10.20%
+
+Fragmentos similares:
+  while True:  try:  except ValueError:  while True:  if _name_ == "_main_":
