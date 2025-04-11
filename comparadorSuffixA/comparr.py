@@ -95,6 +95,7 @@ charL2 = [tokenConv.get(token_type, 'Nain') for token_type in tokens2]
 def suffix_array(text):
     return sorted(range(len(text)), key=lambda i: text[i:])
 
+
 def build_rank(suffix_array, n):
 
     rank = [0] * n
@@ -138,4 +139,6 @@ def lcp_all(sa1, sa2, original1, original2):
     similitud = (2 * max_lcp) / (len(original1) + len(original2)) * 100
     print(f"La similitud es de: {similitud:.2f}%")
     return max_lcp
-    
+
+max_lcp = lcp_all(suffix_array(charL1), suffix_array(charL2), charL1, charL2)
+print(f"LCP máximo: {max_lcp}")
