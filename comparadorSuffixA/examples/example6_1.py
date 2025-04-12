@@ -1,0 +1,12 @@
+import re
+
+def main():
+    X = str(input())
+
+    match_ = re.match(r'^(ch|o|k|u)+$', X)
+    if match_:
+        print('YES')
+    else:
+        print('NO')
+
+main()

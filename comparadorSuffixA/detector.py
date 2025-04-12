@@ -1,58 +1,62 @@
 import difflib
-
-from tokens import tokens, keywords, t_COMMENT, t_error, t_FLOAT, t_HEADER, t_ID, t_ignore, t_NEWLINE, t_NUMBER, t_PUNCTUATOR, t_STRING
-
+from tokenizer import tokenizar_lineas  
 
 def leer_archivo(path):
     with open(path, 'r', encoding='utf-8') as f:
-        return f.readlines()
+        return [line.strip() + '\n' for line in f if line.strip()]
 
-def preprocesar_lineas(lineas):
-    # Elimina espacios, líneas vacías y comentarios
-    return [line.strip() for line in lineas if line.strip() and not line.strip().startswith("#")]
+def calcular_similitud(lista1, lista2):
+    matcher = difflib.SequenceMatcher(None, lista1, lista2)
+    return matcher.ratio() * 100
 
-def calcular_similitud(lineas1, lineas2):
-    matcher = difflib.SequenceMatcher(None, lineas1, lineas2)
-    return matcher.ratio() * 100  # porcentaje
-
-def obtener_fragmentos_similares(lineas1, lineas2):
+def fragmentos_similares(lista1, lista2):
     d = difflib.Differ()
-    resultado = list(d.compare(lineas1, lineas2))
-    similares = [line for line in resultado if line.startswith("  ")]  
-    return similares
+    resultado = list(d.compare(lista1, lista2))
+    return [line[2:] for line in resultado if line.startswith("  ")]
 
-def guardar_resultado(similitud_normal, fragmentos_normal, similitud_procesado, fragmentos_procesado, archivo_salida="resultado.txt"):
+def fragmentos_similares_con_originales(tokens1, tokens2, originales1, originales2):
+    iguales = []
+    for i, t1 in enumerate(tokens1):
+        for j, t2 in enumerate(tokens2):
+            if t1 == t2:
+                iguales.append((t1, originales1[i], originales2[j]))
+    return iguales
+
+def guardar_resultado(similitud_normal, fragmentos_normal, similitud_tokens, fragmentos_tokens, archivo_salida="resultado.txt"):
     with open(archivo_salida, 'w', encoding='utf-8') as f:
         f.write("=== Comparación sin preprocesar (texto llano) ===\n")
         f.write(f"Porcentaje de similitud: {similitud_normal:.2f}%\n\n")
         f.write("Fragmentos similares:\n")
         for linea in fragmentos_normal:
-            f.write(linea)
-        
-        f.write("\n\n=== Comparación con preprocesamiento ===\n")
-        f.write(f"Porcentaje de similitud: {similitud_procesado:.2f}%\n\n")
+            f.write(f"- {linea.strip()}\n")
+
+        f.write("\n\n=== Comparación con preprocesamiento por tokens ===\n")
+        f.write(f"Porcentaje de similitud: {similitud_tokens:.2f}%\n\n")
         f.write("Fragmentos similares:\n")
-        for linea in fragmentos_procesado:
-            f.write(linea)
+        for token_line, orig1, orig2 in fragmentos_tokens:
+            f.write(f"- {token_line.strip()}\n")
+            f.write(f"  ---> Archivo1: {orig1.strip()}\n")
+            f.write(f"  ---> Archivo2: {orig2.strip()}\n")
 
 def main():
-    archivo1 = "archivo1.py"
-    archivo2 = "archivo2.py"
+    archivo1 = "examples/example3_1.py"
+    archivo2 = "examples/example3_2.py"
 
-    # Texto sin procesar
-    lineas1_normales = leer_archivo(archivo1)
-    lineas2_normales = leer_archivo(archivo2)
-    similitud_normal = calcular_similitud(lineas1_normales, lineas2_normales)
-    fragmentos_normal = obtener_fragmentos_similares(lineas1_normales, lineas2_normales)
+    texto1 = leer_archivo(archivo1)
+    texto2 = leer_archivo(archivo2)
 
-    # Texto procesado
-    lineas1_procesadas = preprocesar_lineas(lineas1_normales)
-    lineas2_procesadas = preprocesar_lineas(lineas2_normales)
-    similitud_procesado = calcular_similitud(lineas1_procesadas, lineas2_procesadas)
-    fragmentos_procesado = obtener_fragmentos_similares(lineas1_procesadas, lineas2_procesadas)
+    # Comparación texto plano
+    similitud_normal = calcular_similitud(texto1, texto2)
+    fragmentos_normal = fragmentos_similares(texto1, texto2)
 
-    # Guardar todo en resultado.txt
-    guardar_resultado(similitud_normal, fragmentos_normal, similitud_procesado, fragmentos_procesado)
+    # Comparación tokenizada (línea por línea)
+    tokens1 = tokenizar_lineas(texto1)
+    tokens2 = tokenizar_lineas(texto2)
+    similitud_tokens = calcular_similitud(tokens1, tokens2)
+    fragmentos_tokens = fragmentos_similares_con_originales(tokens1, tokens2, texto1, texto2)
+
+    # Guardar resultado
+    guardar_resultado(similitud_normal, fragmentos_normal, similitud_tokens, fragmentos_tokens)
 
 if __name__ == "__main__":
     main()

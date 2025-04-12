@@ -1,0 +1,1 @@
+r,g,b=map(int,raw_input().split());m=min;f=lambda s,t:sum(abs(i)for i in range(m(s,t),max(s,t)+1));print m(f(-100-m(i-r,-100-r/2),-99-m(i-r,-100-r/2)-r)+f(i,i+g-1)+f(100-max(i+g,100-b/2),101-max(i+g,100-b/2)-b)for i in range(-1000, 1001))
