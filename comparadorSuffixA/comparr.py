@@ -19,6 +19,12 @@ f2 = open("example2.py", 'r')
 source2 = f2.read()
 tokens2 = analizarCode(source2)
 
+f3 = open("example1.py", 'r')
+source3 = f3.read()
+
+f4 = open("example2.py", 'r')
+source4 = f4.read()
+
 tokenConv = {
     'KEYWORD': 'A',
     'ID': 'B',
@@ -82,5 +88,12 @@ def lcp_all(sa1, sa2, original1, original2):
     print(f"La similitud es de: {similitud:.2f}%")
     return max_lcp
 
+
+
+
+print("\n\n# # # # Texto Preprocesado # # # #")
 max_lcp = lcp_all(suffix_array(charL1), suffix_array(charL2), charL1, charL2)
-print(f"LCP máximo: {max_lcp}")
+print(f"LCP máximo: {max_lcp} tokens. \n")
+print("# # # # Texto Plano # # # #")
+max_lcp2 = lcp_all(suffix_array(source3), suffix_array(source4), source3, source4)
+print(f"LCP máximo: {max_lcp2} caracteres.\n\n")
