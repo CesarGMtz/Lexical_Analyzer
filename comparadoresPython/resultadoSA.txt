@@ -1,0 +1,58 @@
+=== RESUMEN DE SIMILITUD ===
+Similitud en texto plano: 99.46%
+Similitud en tokens procesados: 95.83%
+
+=== Fragmentos comunes en texto plano ===
+
+--- Longitud: 380 caracteres ---
+0
+    calc = 0
+
+    #R
+    if -100 + (r-1)//2 >= l:
+        calc += range_sum(l-r, l-1, -100)
+    else:
+        calc += range_sum(-(r//2),(r-1)//2, 0)
+    
+    #G
+    calc += range_sum(l, l+g-1, 0)
+
+    #B
+    if l+g - 1 >= 100 - (b-1)//2:
+        calc += range_sum(l+g, l+g+b-1, 100)
+    else:
+        calc += range_sum(-(b//2),(b-1)//2, 0)
+
+    ans = min(ans, calc)
+
+print(ans)
+
+
+--- Longitud: 333 caracteres ---
+def range_sum(l, r, origin):
+    l -= origin
+    r -= origin
+    
+    if l <= 0 and r <= 0:
+        l, r = -r, -l
+    elif not (l >= 0 and r >= 0):
+        return range_sum(0, abs(l), 0) + range_sum(0, abs(r), 0)
+    
+    return (r*(r+1)//2) - (l*(l-1)//2)
+
+
+r, g, b = map(int, input().split())
+
+ans = 10000000000000
+
+for i in range(
+
+--- Longitud: 20 caracteres ---
+0*2+1):
+    l = i - 
+
+
+=== Fragmentos comunes en tokens procesados ===
+
+--- Longitud: 96 tokens ---
+KEYWORD(def) ID_1 ( ID_2 , ID_3 , ID_4 ) : ID_2 -= ID_4 ID_3 -= ID_4 KEYWORD(if) ID_2 <= NUMBER KEYWORD(and) ID_3 <= NUMBER : ID_2 , ID_3 = - ID_3 , - ID_2 KEYWORD(elif) KEYWORD(not) ( ID_2 >= NUMBER KEYWORD(and) ID_3 >= NUMBER ) : KEYWORD(return) ID_1 ( NUMBER , BUILTIN(abs) ( ID_2 ) , NUMBER ) + ID_1 ( NUMBER , BUILTIN(abs) ( ID_3 ) , NUMBER ) KEYWORD(return) ( ID_3 * ( ID_3 + NUMBER ) // NUMBER ) - ( ID_2 * ( ID_2 - NUMBER ) // NUMBER ) ID_3 , ID_5 , ID_6 = ID_7 ( BUILTIN(int) , BUILTIN(input) ( ) . ID_8 ( ) ) ID_9 = NUMBER KEYWORD(for) ID_10 KEYWORD(in) BUILTIN(range) ( NUMBER * NUMBER + NUMBER ) : ID_2 = ID_10 - NUMBER ID_11 = NUMBER KEYWORD(if) - NUMBER + ( ID_3 - NUMBER ) // NUMBER >= ID_2 : ID_11 += ID_1 ( ID_2 - ID_3 , ID_2 - NUMBER , - NUMBER ) KEYWORD(else) : ID_11 += ID_1 ( - ( ID_3 // NUMBER ) , ( ID_3 - NUMBER ) // NUMBER , NUMBER ) ID_11 += ID_1 ( ID_2 , ID_2 + ID_5 - NUMBER , NUMBER ) KEYWORD(if) ID_2 + ID_5 - NUMBER >= NUMBER - ( ID_6 - NUMBER ) // NUMBER : ID_11 += ID_1 ( ID_2 + ID_5 , ID_2 + ID_5 + ID_6 - NUMBER , NUMBER ) KEYWORD(else) : ID_11 += ID_1 ( - ( ID_6 // NUMBER ) , ( ID_6 - NUMBER ) // NUMBER , NUMBER ) ID_9 = BUILTIN(min) ( ID_9 , ID_11 ) BUILTIN(print) ( ID_9 )
